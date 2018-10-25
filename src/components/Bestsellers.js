@@ -120,7 +120,19 @@ class Bestsellers extends React.Component {
             )
         });
 
-        const toReadBooks = this.state.toRead.map((element, index) => {
+        let booksToRead = [...this.state.toRead]; //na podstawie tablicy książek
+        let newObjToRead = {};
+        if(booksToRead.length && booksToRead[0].from) { //odfiltrowujemy te,które nie mają klucza from
+            newObjToRead.book_details = [];             //tworzymy tablicę w obiekcie
+            const p = {
+                author :booksToRead[0].author ,         //przypisujemy w obiekcie kluczom author i title wartości z firebaseowego obiektu
+                title : booksToRead[0].title
+            };
+            newObjToRead.book_details.push(p);
+            booksToRead = [newObjToRead]            //zastępujemy tablicę z książkami to read z różnymi obiektami, na tę z ujednoliconymi
+        }
+
+        const toReadBooks = booksToRead.map((element, index) => { //mapujemy już po zmienionej tablicy
             return (
                 <li className="bookcase_shelves_shelf_main_bookList_item" key={index}>
                     <button className="bookcase_shelves_shelf_main_bookList_button"
@@ -157,7 +169,7 @@ class Bestsellers extends React.Component {
         });
 
         if (this.state.bookSearched.length === 0) {
-            return <p>Loading</p>
+            return <p>Loading...</p>
         }
 
         return (
