@@ -86,7 +86,16 @@
           height: 200px;
           margin-right: 10px;
           margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
           position: relative;
+          box-shadow: -4px 5px 5px 0px rgba(0, 0, 0, 0.75);
+          transition: box-shadow 1s ease;
+          &:hover {
+            box-shadow: 4px -5px 5px 0px rgba(0,0,0,0.75);
+          }
 
           @include tablet {
             flex-basis: auto;

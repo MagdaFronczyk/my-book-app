@@ -2,18 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import BookItem from "./BookItem";
 import {Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll';
-import * as firebase from "firebase";
-
-const config = {
-    apiKey: "AIzaSyA9ZXFxzvGzcUGnqY5oLQCUwutGiXu-KmI",
-    authDomain: "bookcase-app-220211.firebaseapp.com",
-    databaseURL: "https://bookcase-app-220211.firebaseio.com",
-    projectId: "bookcase-app-220211",
-    storageBucket: "bookcase-app-220211.appspot.com",
-    messagingSenderId: "382956583606"
-};
-firebase.initializeApp(config);
-
+import {db} from "./Firebase";
+import BookSearchItem from "./BookSearchItem"
 
 class Bestsellers extends React.Component {
     constructor() {
@@ -23,14 +13,15 @@ class Bestsellers extends React.Component {
             booksGoogle: [],
             bookshelf: "",
             read: [],
-            toRead: []
+            toRead: [],
+            bookSearched: [],
+            booksFiltered: []
         }
     }
 
     setShelf = (shelf, element) => {
 
         this.setState({
-            // bookshelf: shelf,
             [shelf]: [...this.state[shelf], element]
         });
 
@@ -41,7 +32,6 @@ class Bestsellers extends React.Component {
         const temp = [...this.state.toRead];
         const toRead = temp.splice(index, 1);//usuwamy element z tablicy to read i przekazujemy w state'ie splice zwraca usuniety element
         console.log("toread", toRead);
-        // console.log(index);
         this.setState({
             read: [...this.state.read, alreadyRead],
             toRead: temp
@@ -91,12 +81,20 @@ class Bestsellers extends React.Component {
         Events.scrollEvent.remove('end');
     }
 
-    render() {
+    handleChange = (e) => {
 
-        // if (!this.state.booksGoogle) {
-        //     return <p>Loading ...</p>
-        // }
-        console.log("state", this.state);
+        const filtered = this.state.bookSearched.filter((book)=>{
+            return book.title === e.target.value || book.author === e.target.value;
+        });
+
+        this.setState({
+            searchInput: e.target.value,
+            booksFiltered: filtered,
+        })
+    };
+
+
+    render() {
 
         const readBooks = this.state.read.map((element, index) => {
             return (
@@ -134,33 +132,23 @@ class Bestsellers extends React.Component {
                 />
             )
         });
-// console.log("this.state.booksGoogle",this.state.booksGoogle)
-//         const bestseller = <li> </li>
-        // this.state.booksGoogle.length > 0 && this.state.booksGoogle.map((element, index) => {
-        //     // const thumb = element.items[0];//.volumeInfo.imageLinks.thumbnail
-        //     // console.log(thumb)
-        //     return (
-        //         <li key={index}>
-        //             <p className="bestsellers_main_panel_books_bookList_rank">#{index+1}</p>
-        //             <div className="bestsellers_main_panel_books_bookList_item">
-        //                 <select id="addNewBook" className="bestsellers_main_panel_books_bookList_item_button">
-        //                     <option>Add:</option>
-        //                     <option>Read</option>
-        //                     <option>To Read</option>
-        //                 </select>
-        //                 <img src={"/"} className="bestsellers_main_panel_books_bookList_item_image" alt=""/>
-        //             </div>
-        //             <div className="bestsellers_main_panel_books_bookList_item_info">
-        //                 <p className="bestsellers_main_panel_books_bookList_item_title">{element.items[0].volumeInfo.title}</p>
-        //                 <p className="bestsellers_main_panel_books_bookList_item_author"><i>{element.items[0].volumeInfo.authors}</i></p>
-        //             </div>
-        //         </li>
-        //     )
-        // });
 
+        const booksSearched = this.state.booksFiltered.map((element,index)=> {
+            return (
+                <BookSearchItem
+                    key={index}
+                    book={element}
+                    index={index}
+                    // setShelf={this.setShelf}
+                />
+            )
+        });
+
+        if (this.state.bookSearched.length === 0) {
+            return <p>Loading</p>
+        }
 
         return (
-
             <div>
 
                 <div className="bookcase_panel element" id="bookcase">
@@ -231,7 +219,6 @@ class Bestsellers extends React.Component {
                                 <section className="bestsellers_main_panel_books">
 
                                     <ul className="bestsellers_main_panel_books_bookList">
-                                        {/*{bestseller}*/}
                                         {NYTbestseller}
                                     </ul>
                                 </section>
@@ -262,19 +249,16 @@ class Bestsellers extends React.Component {
 
                             <section className="search_main_panel">
                                 <label htmlFor="search"> </label>
-                                <input type="search"
-                                       className="search_main_panel_input"
-                                       id="search"
-                                       placeholder="Search by title or author..."/>
+                                <input
+                                    value={this.state.searchInput}
+                                    onChange={this.handleChange}
+                                    type="search"
+                                    className="search_main_panel_input"
+                                    id="search"
+                                    placeholder="Search by title or author..."/>
                                 <section className="search_main_panel_books">
                                     <ul className="search_main_panel_books_bookList">
-                                        <li className="search_main_panel_books_bookList_item">
-                                            <select id="addNewBook"
-                                                    className="search_main_panel_books_bookList_item_button">
-                                                <option>Read</option>
-                                                <option>To Read</option>
-                                            </select>
-                                        </li>
+                                        {booksSearched}
                                     </ul>
                                 </section>
 
@@ -283,18 +267,18 @@ class Bestsellers extends React.Component {
 
                         <div className="search_buttons">
                             <Link activeClass="active"
-                                  to="bookcase"
-                                  spy={true}
-                                  smooth={true}
-                                  duration={500}>
-                                <button className="search_button_return">Return to shelves</button>
-                            </Link>
-                            <Link activeClass="active"
                                   to="bestsellers"
                                   spy={true}
                                   smooth={true}
                                   duration={500}>
                                 <button className="search_button_bestsellers">NYT bestsellers</button>
+                            </Link>
+                            <Link activeClass="active"
+                                  to="bookcase"
+                                  spy={true}
+                                  smooth={true}
+                                  duration={500}>
+                                <button className="search_button_return">Return to shelves</button>
                             </Link>
                         </div>
 
@@ -310,20 +294,22 @@ class Bestsellers extends React.Component {
     componentDidMount() {
 
         Events.scrollEvent.register('begin', function () {
-            console.log("begin", arguments);
+
         });
 
         Events.scrollEvent.register('end', function () {
-            console.log("end", arguments);
+
         });
 
-
-        // Promise.all([
-        //     axios.get('https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=442776d99c7e4ee6999d05a6b05c24ca'),
-        //     axios.get('https://api.github.com/users/antranilan/repos')
-        // ]).then( nyts => {
-        //
-        // })
+        db.collection('my-books').get().then((response) => {
+            const temp = [];
+            response.docs.forEach((e) => {
+                temp.push(e.data())
+            });
+            this.setState({
+                bookSearched: temp
+            })
+        });
 
         axios.get("https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=442776d99c7e4ee6999d05a6b05c24ca")
             .then((res) => {
@@ -331,19 +317,7 @@ class Bestsellers extends React.Component {
                 this.setState({
                     booksNYT: results
                 });
-
-                // results.forEach((element, index) => {
-                //     axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${element.isbns[0].isbn10}&key=AIzaSyCXC2B6MQJvgpOCHgopJ60byPdf1-kFQnI`)
-                //         .then((response) => {
-                //             this.setState({
-                //                 booksGoogle: [...this.state.booksGoogle, response.data]
-                //             })
-                //         })
-                // });
-
             });
-
-
     }
 }
 

@@ -1,7 +1,7 @@
 .bookcase_shelves {
   &_buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
   ::-moz-scrollbar-track {
     width: 20px;
