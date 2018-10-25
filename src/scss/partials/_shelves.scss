@@ -1,0 +1,116 @@
+.bookcase_shelves {
+  &_buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  ::-moz-scrollbar-track {
+    width: 20px;
+  }
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $color-primary;
+    border-radius: 10px;
+    height: 50px;
+    width: 50px;
+  }
+  &_container {
+    display: flex;
+    margin-top: 10px;
+  }
+  &_shelf {
+    border: 2px solid $color-primary;
+    border-radius: 0 10px 10px 0;
+    height: 320px;
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &_nav {
+      background-color: #202020;
+      flex-basis: 5%;
+      color: #f1f1ff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      padding-top: 10px;
+      &_heading {
+        text-orientation: mixed;
+        writing-mode: vertical-rl;
+        font-weight: $font-light
+      }
+    }
+    &_main {
+      margin: 0 auto;
+      &_bookList {
+        flex-basis: 100%;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include tablet {
+          flex-direction: row;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        @include desktop {
+          flex-direction: row;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        &_item {
+          margin: 10px 0 10px 0;
+          border: 2px solid $color-primary;
+          width: 150px;
+          height: 200px;
+          margin-right: 10px;
+          margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          box-shadow: -4px 5px 5px 0px rgba(0, 0, 0, 0.75);
+          transition: box-shadow 1s ease;
+          &:hover {
+            box-shadow: 4px -5px 5px 0px rgba(0,0,0,0.75);
+          }
+          &_title {
+            text-align: center;
+            font-weight: $font-bold;
+            color: $color-title;
+            font-size: 1.2em;
+          }
+          &_author {
+            text-align: center;
+            font-weight: $font-super-bold;
+          }
+          @include tablet {
+            flex-basis: auto;
+            border: 2px solid $color-primary;
+            height: 200px;
+            width: 150px;
+          }
+          @include desktop {
+            flex-basis: auto;
+            border: 2px solid $color-primary;
+            height: 200px;
+            width: 150px;
+
+          }
+        }
+      }
+    }
+  }
+}
+

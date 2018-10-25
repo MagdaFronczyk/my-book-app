@@ -1,0 +1,117 @@
+.bookcase_shelves_button {
+  height: 40px;
+  margin: 10px;
+  width: 150px;
+  margin-left: auto;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: -3px 3px 5px -1px rgba(79,79,79,1);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: $font-light;
+  transition: box-shadow 1s ease;
+  @include hover-buttons
+}
+
+.search_button_bestsellers{
+  height: 40px;
+  margin: 10px;
+  width: 150px;
+  margin-left: auto;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: -3px 3px 5px -1px rgba(79,79,79,1);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: $font-light;
+  @include hover-buttons
+}
+
+.bestsellers_button_return {
+  height: 40px;
+  margin: 10px;
+  width: 150px;
+  margin-left: auto;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: -3px 3px 5px -1px rgba(79,79,79,1);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: $font-light;
+  @include hover-buttons
+}
+
+.search_button_return {
+  height: 40px;
+  margin: 10px;
+  width: 150px;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  box-shadow: -3px 3px 5px -1px rgba(79,79,79,1);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: $font-light;
+  @include hover-buttons
+}
+
+.bookcase_shelves_shelf_main_bookList_button {
+  height: 25px;
+  width: 50px;
+  margin-left: auto;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  font-family: inherit;
+  font-weight: $font-light;
+  position: absolute;
+  top: 0;
+  right: 0;
+  &:hover{
+    background-color: $color-primary;
+    transition: 1s;
+  }
+}
+
+.bestsellers_main_panel_books_bookList_item_button {
+  height: 25px;
+  width: 65px;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  font-family: inherit;
+  font-weight: $font-light;
+  position: absolute;
+  top:0;
+  right: -10%;
+  &:hover{
+    background-color: $color-primary;
+    transition: 1s;
+  }
+}
+
+.search_main_panel_books_bookList_item_button{
+  height: 25px;
+  width: 65px;
+  //font-size: 0.6rem;
+  margin-left: auto;
+  background-color: $color-button;
+  color: #FFFFFF;
+  border: none;
+  font-family: inherit;
+  font-weight: $font-light;
+  position: absolute;
+  top:0;
+  right: 0;
+  &:hover{
+    background-color: $color-primary;
+    transition: 1s;
+  }
+}
