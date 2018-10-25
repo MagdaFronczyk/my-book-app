@@ -23,7 +23,7 @@ class BookSearchItem extends React.Component {
 
         return (
 
-            <li>
+            <li >
                 <div className="search_main_panel_books_bookList_item">
                     <select
                         value={this.state.bookshelf}

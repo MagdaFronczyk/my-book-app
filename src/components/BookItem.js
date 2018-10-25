@@ -21,8 +21,8 @@ class BookItem extends React.Component {
        const index = this.props.index;
      return (
          <li>
-             <p className="bestsellers_main_panel_books_bookList_rank">#{index + 1}</p>
              <div className="bestsellers_main_panel_books_bookList_item_info">
+                 <p className="bestsellers_main_panel_books_bookList_rank">#{index + 1}</p>
                  <select
                      value={this.state.bookshelf}
                      id="addNewBook"

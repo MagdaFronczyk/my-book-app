@@ -84,7 +84,7 @@ class Bestsellers extends React.Component {
     handleChange = (e) => {
 
         const filtered = this.state.bookSearched.filter((book)=>{
-            return book.title === e.target.value || book.author === e.target.value;
+            return book.title.toUpperCase() === e.target.value.toUpperCase() || book.author.toUpperCase() === e.target.value.toUpperCase();
         });
 
         this.setState({
@@ -96,19 +96,31 @@ class Bestsellers extends React.Component {
 
     render() {
 
-        const readBooks = this.state.read.map((element, index) => {
+        let books = [...this.state.read];
+        let newObj = {};
+        if(books.length && books[0].from) {
+            newObj.book_details = [];
+            const p = {
+                author :books[0].author ,
+                title : books[0].title
+            };
+            newObj.book_details.push(p);
+            books = [newObj]
+        }
+
+        const readBooks = books.map((element, index) => {
+            console.log(element);
             return (
                 <li className="bookcase_shelves_shelf_main_bookList_item" key={index}>
                     <p className="bookcase_shelves_shelf_main_bookList_item_title">
-                        <i>{element.book_details[0].title}</i></p>
+                        <i>{element.book_details[0].title === undefined ? element.title : element.book_details[0].title}</i></p>
                     <p className="bookcase_shelves_shelf_main_bookList_item_author">
-                        <i>by {element.book_details[0].author}</i></p>
+                        <i>by {element.book_details[0].author  === undefined ? element.author : element.book_details[0].author}</i></p>
                 </li>
             )
         });
 
         const toReadBooks = this.state.toRead.map((element, index) => {
-            console.log(element);
             return (
                 <li className="bookcase_shelves_shelf_main_bookList_item" key={index}>
                     <button className="bookcase_shelves_shelf_main_bookList_button"
@@ -139,7 +151,7 @@ class Bestsellers extends React.Component {
                     key={index}
                     book={element}
                     index={index}
-                    // setShelf={this.setShelf}
+                    setShelf={this.setShelf}
                 />
             )
         });
@@ -303,8 +315,10 @@ class Bestsellers extends React.Component {
 
         db.collection('my-books').get().then((response) => {
             const temp = [];
+            const info = {from: "FB"}
             response.docs.forEach((e) => {
-                temp.push(e.data())
+                const newObj = Object.assign({}, e.data(), info)
+                temp.push(newObj)
             });
             this.setState({
                 bookSearched: temp
