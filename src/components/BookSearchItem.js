@@ -4,14 +4,16 @@ class BookSearchItem extends React.Component {
     constructor() {
         super();
         this.state = {
-            bookshelf: ""
+            bookshelf: "",
+            disable: null,
         }
     }
 
     handleSelect = (e, element) => {
         const shelf = e.target.value === "Read" ? "read" : "toRead";
         this.setState({
-            bookshelf: shelf
+            bookshelf: shelf,
+            disable: true,
         });
         this.props.setShelf(shelf, element)
     };
@@ -31,8 +33,8 @@ class BookSearchItem extends React.Component {
                         className="search_main_panel_books_bookList_item_button"
                         onChange={event => this.handleSelect(event, element)}>
                         <option>Add:</option>
-                        <option>Read</option>
-                        <option>To Read</option>
+                        <option disabled={this.state.disable}>Read</option>
+                        <option disabled={this.state.disable}>To Read</option>
                     </select>
 
                     <p className="bestsellers_main_panel_books_bookList_item_title">
