@@ -4,7 +4,9 @@ class BookItem extends React.Component {
    constructor() {
         super();
         this.state = {
-            bookshelf: ""
+            bookshelf: "",
+            disabledRead: false,
+            disabledToRead: false,
         }
    }
 
@@ -15,6 +17,18 @@ class BookItem extends React.Component {
         });
         this.props.setShelf(shelf, element)
     };
+
+   handleRead = (e) => {
+       this.setState({
+           disabledRead: true,
+       })
+   };
+
+   handleToRead = (e) => {
+       this.setState({
+           disabledToRead: true,
+       })
+   };
 
    render(){
        const element = this.props.book;
@@ -29,8 +43,8 @@ class BookItem extends React.Component {
                      className="bestsellers_main_panel_books_bookList_item_button"
                      onChange={event => this.handleSelect(event, element)}>
                      <option>Add:</option>
-                     <option>Read</option>
-                     <option>To Read</option>
+                     <option onClick={this.handleRead}>Read</option>
+                     <option onClick={this.handleToRead}>To Read</option>
                  </select>
 
                  <p className="bestsellers_main_panel_books_bookList_item_title">

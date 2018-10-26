@@ -14,7 +14,7 @@
   }
   &_container {
     display: flex;
-    margin-top:10px;
+    margin-top: 10px;
   }
   &_buttons {
     display: flex;
@@ -51,7 +51,7 @@
       height: 40px;
       margin: 10px;
       width: 250px;
-      background-color:#e3dede ;
+      background-color: #e3dede;
       border: none;
       border-radius: 10px;
       font-family: inherit;
@@ -94,7 +94,7 @@
           box-shadow: -4px 5px 5px 0px rgba(0, 0, 0, 0.75);
           transition: box-shadow 1s ease;
           &:hover {
-            box-shadow: 4px -5px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 4px -5px 5px 0px rgba(0, 0, 0, 0.75);
           }
 
           @include tablet {
@@ -118,6 +118,5 @@
     }
 
   }
-
 
 }

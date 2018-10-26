@@ -11,7 +11,7 @@ class BookSearchItem extends React.Component {
     handleSelect = (e, element) => {
         const shelf = e.target.value === "Read" ? "read" : "toRead";
         this.setState({
-            bookshelf: shelf,
+            bookshelf: shelf
         });
         this.props.setShelf(shelf, element)
     };

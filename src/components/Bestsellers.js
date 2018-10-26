@@ -15,14 +15,28 @@ class Bestsellers extends React.Component {
             read: [],
             toRead: [],
             bookSearched: [],
-            booksFiltered: []
+            booksFiltered: [],
+            disabledRead: false,
+            disabledToRead: false,
+
         }
     }
 
     setShelf = (shelf, element) => {
 
+        let newObj = {};
+        if( element.from == "FB") {
+            newObj.book_details = [];
+            const p = {
+                author :element.author ,
+                title : element.title
+            };
+            newObj.book_details.push(p);
+        } else {
+            newObj = element;
+        }
         this.setState({
-            [shelf]: [...this.state[shelf], element]
+            [shelf]: [...this.state[shelf], newObj]
         });
 
     };
@@ -31,7 +45,6 @@ class Bestsellers extends React.Component {
         const alreadyRead = element;
         const temp = [...this.state.toRead];
         const toRead = temp.splice(index, 1);//usuwamy element z tablicy to read i przekazujemy w state'ie splice zwraca usuniety element
-        console.log("toread", toRead);
         this.setState({
             read: [...this.state.read, alreadyRead],
             toRead: temp
@@ -96,43 +109,18 @@ class Bestsellers extends React.Component {
 
     render() {
 
-        let books = [...this.state.read];
-        let newObj = {};
-        if(books.length && books[0].from) {
-            newObj.book_details = [];
-            const p = {
-                author :books[0].author ,
-                title : books[0].title
-            };
-            newObj.book_details.push(p);
-            books = [newObj]
-        }
-
-        const readBooks = books.map((element, index) => {
-            console.log(element);
+        const readBooks = this.state.read.map((element, index) => {
             return (
                 <li className="bookcase_shelves_shelf_main_bookList_item" key={index}>
                     <p className="bookcase_shelves_shelf_main_bookList_item_title">
-                        <i>{element.book_details[0].title === undefined ? element.title : element.book_details[0].title}</i></p>
+                        <i>{element.book_details[0].title}</i></p>
                     <p className="bookcase_shelves_shelf_main_bookList_item_author">
-                        <i>by {element.book_details[0].author  === undefined ? element.author : element.book_details[0].author}</i></p>
+                        <i>by {element.book_details[0].author}</i></p>
                 </li>
             )
         });
 
-        let booksToRead = [...this.state.toRead]; //na podstawie tablicy książek
-        let newObjToRead = {};
-        if(booksToRead.length && booksToRead[0].from) { //odfiltrowujemy te,które nie mają klucza from
-            newObjToRead.book_details = [];             //tworzymy tablicę w obiekcie
-            const p = {
-                author :booksToRead[0].author ,         //przypisujemy w obiekcie kluczom author i title wartości z firebaseowego obiektu
-                title : booksToRead[0].title
-            };
-            newObjToRead.book_details.push(p);
-            booksToRead = [newObjToRead]            //zastępujemy tablicę z książkami to read z różnymi obiektami, na tę z ujednoliconymi
-        }
-
-        const toReadBooks = booksToRead.map((element, index) => { //mapujemy już po zmienionej tablicy
+        const toReadBooks = this.state.toRead.map((element, index) => {
             return (
                 <li className="bookcase_shelves_shelf_main_bookList_item" key={index}>
                     <button className="bookcase_shelves_shelf_main_bookList_button"
@@ -169,7 +157,10 @@ class Bestsellers extends React.Component {
         });
 
         if (this.state.bookSearched.length === 0) {
-            return <p>Loading...</p>
+            return (
+                    <p>Loading...</p>
+
+            )
         }
 
         return (
@@ -251,6 +242,13 @@ class Bestsellers extends React.Component {
                         </div>
 
                         <div className="bestsellers_buttons">
+                            <Link activeClass="active"
+                                  to="bookfinder"
+                                  spy={true}
+                                  smooth={true}
+                                  duration={500}>
+                                <button className="bookcase_shelves_button">Add a new book</button>
+                            </Link>
                             <Link activeClass="active"
                                   to="bookcase"
                                   spy={true}

@@ -80,6 +80,7 @@
           justify-content: center;
           align-items: center;
           position: relative;
+          background-color: $color-secondary;
           box-shadow: -4px 5px 5px 0px rgba(0, 0, 0, 0.75);
           transition: box-shadow 1s ease;
           &:hover {
