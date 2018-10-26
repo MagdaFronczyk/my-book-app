@@ -42,7 +42,7 @@
         &_rank {
           text-align: center;
           font-weight: $font-bold;
-          font-size: 2em; //nie przyjmuje domyslnych
+          font-size: 2em;
         }
 
         &_item {
@@ -53,9 +53,10 @@
             position: relative;
             width: 300px;
             height: 400px;
+            margin-bottom: 10px;
             @include desktop {
               width: 500px;
-              height: 200px;
+              height: 300px;
             }
           }
           &_image {
@@ -67,7 +68,6 @@
               transition: 1s;
             }
           }
-
           &_title {
             text-align: center;
             color: #30A9DE;
@@ -83,8 +83,6 @@
             font-size: 1.2rem;
           }
           &_weeks {
-            padding-top: 10px;
-            padding-bottom: 10px;
             span {
               font-weight: $font-bold;
               color: lighten($color-title, 10%);
@@ -94,8 +92,6 @@
           &_link {
             text-decoration: none;
             color: lighten($color-button,20%);
-            padding-top: 10px;
-            padding-bottom: 10px;
             &:hover {
               color: $color-button;
             }
