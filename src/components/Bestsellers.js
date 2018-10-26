@@ -325,9 +325,9 @@ class Bestsellers extends React.Component {
 
         db.collection('my-books').get().then((response) => {
             const temp = [];
-            const info = {from: "FB"}
+            const info = {from: "FB"};
             response.docs.forEach((e) => {
-                const newObj = Object.assign({}, e.data(), info)
+                const newObj = Object.assign({}, e.data(), info);
                 temp.push(newObj)
             });
             this.setState({
@@ -338,6 +338,8 @@ class Bestsellers extends React.Component {
         axios.get("https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=442776d99c7e4ee6999d05a6b05c24ca")
             .then((res) => {
                 const results = res.data.results;
+                console.log(results);
+                console.log(results[0].weeks_on_list);
                 this.setState({
                     booksNYT: results
                 });
