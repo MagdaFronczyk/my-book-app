@@ -1,10 +1,11 @@
 @mixin tablet {
-  @media all and (min-width: 740px){
+  @media all and (min-width: 740px) {
     @content;
   }
 }
+
 @mixin desktop {
-  @media all and (min-width: 980px){
+  @media all and (min-width: 980px) {
     @content;
   }
 }
@@ -15,7 +16,7 @@
 }
 
 @mixin hover-buttons {
-  &:hover{
+  &:hover {
     background-color: $color-primary;
     transition: 1s;
     @include scale-down

@@ -25,11 +25,11 @@ class Bestsellers extends React.Component {
     setShelf = (shelf, element) => {
 
         let newObj = {};
-        if( element.from == "FB") {
+        if (element.from == "FB") {
             newObj.book_details = [];
             const p = {
-                author :element.author ,
-                title : element.title
+                author: element.author,
+                title: element.title
             };
             newObj.book_details.push(p);
         } else {
@@ -96,7 +96,7 @@ class Bestsellers extends React.Component {
 
     handleChange = (e) => {
 
-        const filtered = this.state.bookSearched.filter((book)=>{
+        const filtered = this.state.bookSearched.filter((book) => {
             return book.title.toUpperCase() === e.target.value.toUpperCase() || book.author.toUpperCase() === e.target.value.toUpperCase();
         });
 
@@ -145,7 +145,7 @@ class Bestsellers extends React.Component {
             )
         });
 
-        const booksSearched = this.state.booksFiltered.map((element,index)=> {
+        const booksSearched = this.state.booksFiltered.map((element, index) => {
             return (
                 <BookSearchItem
                     key={index}
@@ -158,7 +158,7 @@ class Bestsellers extends React.Component {
 
         if (this.state.bookSearched.length === 0) {
             return (
-                    <p>Loading...</p>
+                <p>Loading...</p>
 
             )
         }
@@ -338,8 +338,6 @@ class Bestsellers extends React.Component {
         axios.get("https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=442776d99c7e4ee6999d05a6b05c24ca")
             .then((res) => {
                 const results = res.data.results;
-                console.log(results);
-                console.log(results[0].weeks_on_list);
                 this.setState({
                     booksNYT: results
                 });

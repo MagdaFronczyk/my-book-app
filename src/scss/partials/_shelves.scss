@@ -3,9 +3,6 @@
     display: flex;
     justify-content: space-between;
   }
-  ::-moz-scrollbar-track {
-    width: 20px;
-  }
   ::-webkit-scrollbar {
     width: 20px;
   }
@@ -84,7 +81,7 @@
           box-shadow: -4px 5px 5px 0px rgba(0, 0, 0, 0.75);
           transition: box-shadow 1s ease;
           &:hover {
-            box-shadow: 4px -5px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 4px -5px 5px 0px rgba(0, 0, 0, 0.75);
           }
           &_title {
             text-align: center;
@@ -107,7 +104,6 @@
             border: 2px solid $color-primary;
             height: 200px;
             width: 150px;
-
           }
         }
       }
