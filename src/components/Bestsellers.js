@@ -97,7 +97,7 @@ class Bestsellers extends React.Component {
     handleChange = (e) => {
 
         const filtered = this.state.bookSearched.filter((book) => {
-            return book.title.toUpperCase() === e.target.value.toUpperCase() || book.author.toUpperCase() === e.target.value.toUpperCase();
+            return book.title.toUpperCase().charAt(0) === e.target.value.toUpperCase().charAt(0) || book.author.toUpperCase().charAt(0) === e.target.value.toUpperCase().charAt(0);
         });
 
         this.setState({
