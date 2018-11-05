@@ -14,9 +14,9 @@
 This is my first app created with React JS. It allows the user to add books from NYT bestsellers list(from NYT API),and firebase database collection,to "Read"/"To Read" shelves.
 
 ## Screenshots
-(./src/img/screenshot1.png)
-(./src/img/screenshot2.png)
-(./src/img/screenshot3.png)
+![Example screenshot](./src/img/screenshot1.png)
+![Example screenshot](./src/img/screenshot2.png)
+![Example screenshot](./src/img/screenshot3.png)
 
 ## Technologies
 * JavaScript - ECMAScript 6
