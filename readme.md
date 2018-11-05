@@ -1,5 +1,5 @@
-# Your Bookcase App
->The purpose of "Your Bookcase App" is to allow the user to maintain her/his read and to-read books.
+# My Bookcase
+>The purpose of "My Bookcase" app is to allow the user to maintain her/his read and to-read books.
 
 ## Table of contents
 * [General info](#general-info)
@@ -11,16 +11,19 @@
 * [Contact](#contact)
 
 ## General info
-This is my first app created with React JS. It allows the user to add books from NYT bestsellers list(from NYT API),and firebase database collection,to "Read"/"To Read" shelves.
+This is my first app created with React.js. It allows the user to add books from NYT bestsellers' list (NYT books API),and firebase database collection,to "Read"/"To Read" shelves, as well as move the chosen titles between the shelves.
 
 ## Screenshots
+Bookshelves panel
 ![Example screenshot](./src/img/screenshot1.png)
+NYT bestsellers panel
 ![Example screenshot](./src/img/screenshot2.png)
+Books database panel
 ![Example screenshot](./src/img/screenshot3.png)
 
 ## Technologies
 * JavaScript - ECMAScript 6
-* React js - version 16.5.2
+* React.js - version 16.5.2
 * Axios - version 0.18.0
 * Firebase - version 5.5.5
 * SASS
@@ -40,6 +43,8 @@ To-do list:
 
 ## Status
 Project is: _in progress_
+
+I'm still improving my code,and adding visual/functional features to my project.
 
 
 ## Contact
